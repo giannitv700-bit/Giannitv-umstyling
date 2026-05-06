@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Gianni_TV - Bewerbung</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+:root{--red:#e63030;--gold:#f5a623;--bg:#080808;--card:#111;--card2:#1a1a1a;--border:rgba(255,255,255,0.07);--text:#f0f0f0;--muted:#666;--green:#00e676;--r:16px;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:16px;}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 80% 60% at 100% 0%,rgba(230,48,48,.1) 0%,transparent 55%),radial-gradient(ellipse 60% 40% at 0% 100%,rgba(245,166,35,.06) 0%,transparent 50%);pointer-events:none;z-index:0;}
+.screen{display:none;width:100%;max-width:500px;z-index:1;}
+.screen.active{display:block;animation:fadeUp .4s ease both;}
+#langScreen{display:flex;flex-direction:column;align-items:center;gap:20px;text-align:center;z-index:1;width:100%;max-width:500px;animation:fadeUp .5s ease both;}
+.logo-wrap{width:96px;height:96px;background:linear-gradient(145deg,#e63030,#6a0000);border-radius:24px;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 1px rgba(255,255,255,.08),0 12px 40px rgba(230,48,48,.5);}
+.logo-text{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:2px;color:#fff;line-height:1.1;}
+.brand-name{font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:5px;color:#fff;}
+.brand-sub{font-size:12px;color:var(--muted);margin-top:-14px;letter-spacing:2px;text-transform:uppercase;}
+.lang-title{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);}
+.lang-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;}
+.lang-btn{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:14px 12px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:10px;}
+.lang-btn:hover{border-color:rgba(230,48,48,.4);}
+.lang-btn.sel{border-color:var(--red);background:rgba(230,48,48,.07);}
+.lang-flag{font-size:26px;}
+.lang-name{font-size:13px;font-weight:700;color:var(--text);text-align:left;}
+.lang-native{font-size:11px;color:var(--muted);text-align:left;}
+.qr-box{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:20px;text-align:center;width:100%;}
+.qr-label{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:14px;}
+#qrcode{display:flex;justify-content:center;margin-bottom:10px;}
+#qrcode canvas,#qrcode img{border-radius:8px;padding:8px;background:#fff;}
+.qr-url{font-size:10px;color:var(--muted);word-break:break-all;margin-bottom:10px;}
+.qr-tip{background:rgba(245,166,35,.07);border:1px solid rgba(245,166,35,.15);border-radius:10px;padding:10px 14px;font-size:12px;color:#c9a500;line-height:1.6;}
+.go-btn{width:100%;padding:16px;background:linear-gradient(135deg,#e63030,#9a0000);color:#fff;border:none;border-radius:var(--r);font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 6px 28px rgba(230,48,48,.4);transition:opacity .2s,transform .15s;}
+.go-btn:hover{opacity:.9;transform:translateY(-2px);}
+.app-header{display:flex;align-items:center;gap:14px;padding-bottom:18px;margin-bottom:18px;border-bottom:1px solid var(--border);}
+.h-logo{width:48px;height:48px;border-radius:13px;background:linear-gradient(135deg,#e63030,#6a0000);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 16px rgba(230,48,48,.3);}
+.h-logo-txt{font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:1px;color:#fff;line-height:1.1;text-align:center;}
+.h-info h1{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;line-height:1;}
+.h-info p{font-size:11px;color:var(--muted);margin-top:3px;}
+.lang-sw{margin-left:auto;background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:7px 12px;font-size:12px;color:var(--muted);cursor:pointer;white-space:nowrap;font-weight:600;}
+.lang-sw:hover{border-color:var(--red);color:var(--text);}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:20px;margin-bottom:14px;}
+.c-label{font-size:11px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:var(--red);margin-bottom:16px;}
+.opt{font-size:9px;font-weight:600;background:var(--card2);color:var(--muted);padding:2px 6px;border-radius:4px;margin-left:4px;letter-spacing:1px;text-transform:uppercase;vertical-align:middle;}
+.field{margin-bottom:12px;}
+.field:last-child{margin-bottom:0;}
+.field label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px;font-weight:600;}
+.field input,.field textarea{width:100%;background:var(--card2);border:1px solid var(--border);border-radius:11px;padding:13px 15px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;outline:none;transition:border-color .2s;resize:none;-webkit-appearance:none;}
+.field input::placeholder,.field textarea::placeholder{color:#333;}
+.field input:focus,.field textarea:focus{border-color:rgba(230,48,48,.4);box-shadow:0 0 0 3px rgba(230,48,48,.06);}
+.field textarea{height:160px;line-height:1.7;}
+.char-ct{text-align:right;font-size:11px;color:var(--muted);margin-top:5px;}
+.up-zone{border:2px dashed var(--border);border-radius:13px;padding:24px 20px;text-align:center;cursor:pointer;transition:all .25s;margin-bottom:0;}
+.up-zone:hover{border-color:rgba(230,48,48,.35);background:rgba(230,48,48,.02);}
+.up-zone.has-file{border-style:solid;border-color:rgba(0,230,118,.4);background:rgba(0,230,118,.03);}
+.up-icon{font-size:32px;margin-bottom:8px;}
+.up-title{font-size:14px;font-weight:700;margin-bottom:4px;}
+.up-sub{font-size:12px;color:var(--muted);}
+.up-ok{font-size:13px;color:var(--green);font-weight:600;margin-top:4px;}
+.sub-btn{width:100%;padding:17px;background:linear-gradient(135deg,#e63030,#9a0000);color:#fff;border:none;border-radius:var(--r);font-family:'DM Sans',sans-serif;font-size:16px;font-weight:700;cursor:pointer;box-shadow:0 6px 28px rgba(230,48,48,.35);transition:opacity .2s,transform .15s;margin-top:4px;}
+.sub-btn:hover{opacity:.92;transform:translateY(-2px);}
+.sub-btn:active{transform:scale(.98);}
+.sub-btn:disabled{opacity:.4;cursor:not-allowed;transform:none;}
+.spin{display:none;width:22px;height:22px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;margin:0 auto;}
+.sub-btn.loading .btn-txt{display:none;}
+.sub-btn.loading .spin{display:block;}
+.err-box{background:rgba(230,48,48,.08);border:1px solid rgba(230,48,48,.2);color:#ff7070;border-radius:11px;padding:14px 16px;font-size:13px;font-weight:500;margin-top:12px;display:none;}
+.err-box.show{display:block;}
+#successScreen{text-align:center;padding:60px 20px;}
+.ok-icon{font-size:80px;margin-bottom:24px;display:block;animation:bounce .7s ease .1s both;}
+.ok-title{font-family:'Bebas Neue',sans-serif;font-size:42px;letter-spacing:4px;margin-bottom:12px;}
+.ok-sub{color:var(--muted);font-size:15px;line-height:1.8;max-width:320px;margin:0 auto 32px;}
+.ok-btn{background:var(--card);border:1px solid var(--border);color:var(--text);padding:13px 36px;border-radius:50px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;display:inline-block;}
+.ok-btn:hover{border-color:var(--red);}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+@keyframes spin{to{transform:rotate(360deg);}}
+@keyframes bounce{0%{transform:scale(.3);opacity:0;}60%{transform:scale(1.15);}100%{transform:scale(1);opacity:1;}}
+</style>
+</head>
+<body>
+
+<div id="langScreen">
+  <div class="logo-wrap"><div class="logo-text">GIANNI<br>TV</div></div>
+  <div>
+    <div class="brand-name">GIANNI_TV</div>
+    <div class="brand-sub">Umstyling Bewerbung</div>
+  </div>
+  <div class="lang-title">Sprache wahlen · Choose language</div>
+  <div class="lang-grid">
+    <div class="lang-btn sel" id="btn-de" onclick="selLang('de')"><span class="lang-flag">🇩🇪</span><div><div class="lang-name">Deutsch</div><div class="lang-native">Deutsche Seite</div></div></div>
+    <div class="lang-btn" id="btn-en" onclick="selLang('en')"><span class="lang-flag">🇬🇧</span><div><div class="lang-name">English</div><div class="lang-native">English page</div></div></div>
+    <div class="lang-btn" id="btn-es" onclick="selLang('es')"><span class="lang-flag">🇪🇸</span><div><div class="lang-name">Espanol</div><div class="lang-native">Pagina espanola</div></div></div>
+    <div class="lang-btn" id="btn-it" onclick="selLang('it')"><span class="lang-flag">🇮🇹</span><div><div class="lang-name">Italiano</div><div class="lang-native">Pagina italiana</div></div></div>
+    <div class="lang-btn" id="btn-tr" onclick="selLang('tr')" style="grid-column:1/-1;"><span class="lang-flag">🇹🇷</span><div><div class="lang-name">Turkce</div><div class="lang-native">Turkce sayfa</div></div></div>
+    <div class="lang-btn" id="btn-fr" onclick="selLang('fr')"><span class="lang-flag">🇫🇷</span><div><div class="lang-name">Francais</div><div class="lang-native">Page francaise</div></div></div>
+    <div class="lang-btn" id="btn-ar" onclick="selLang('ar')"><span class="lang-flag">🇸🇦</span><div><div class="lang-name">العربية</div><div class="lang-native">الصفحة العربية</div></div></div>
+  </div>
+  <div class="qr-box">
+    <div class="qr-label">📱 QR Code — Im Video zeigen!</div>
+    <div id="qrcode"></div>
+    <div class="qr-url" id="qrUrl"></div>
+    <div class="qr-tip">Zeig diesen QR Code in deinem TikTok / YouTube Video!<br>Zuschauer scannen und bewerben sich direkt.</div>
+  </div>
+  <button class="go-btn" id="goBtn" onclick="openApp()">Weiter zur Bewerbung →</button>
+</div>
+
+<div class="screen" id="appScreen">
+  <div class="app-header">
+    <div class="h-logo"><div class="h-logo-txt">GIANNI<br>TV</div></div>
+    <div class="h-info"><h1 id="hTitle">Bewirb dich</h1><p>Gianni_TV · Umstyling</p></div>
+    <div class="lang-sw" onclick="goBack()">🌐 Sprache</div>
+  </div>
+
+  <div class="card">
+    <div class="c-label">👤 <span id="lPersonal">Persoenliche Daten</span></div>
+    <div class="field"><label id="lName">Dein Name *</label><input id="iName" type="text" maxlength="80" placeholder="Vor- und Nachname"></div>
+    <div class="field"><label id="lEmail">E-Mail *</label><input id="iEmail" type="email" maxlength="100" placeholder="deine@email.de"></div>
+    <div class="field"><label>Handynummer <span class="opt">optional</span></label><input id="iPhone" type="tel" maxlength="20" placeholder="+49 123 456789"></div>
+    <div class="field"><label>TikTok / Instagram <span class="opt">optional</span></label><input id="iSocial" type="text" maxlength="100" placeholder="@deinname"></div>
+  </div>
+
+  <div class="card">
+    <div class="c-label">✍️ <span id="lApp">Deine Bewerbung</span></div>
+    <div class="field">
+      <label id="lWhy">Warum solltest genau du ausgewahlt werden? *</label>
+      <textarea id="iMsg" maxlength="2000" placeholder="Uberzeuge mich!"></textarea>
+      <div class="char-ct"><span id="charN">0</span> / 2000</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="c-label">📸 <span id="lFoto">Dein Foto</span> <span class="opt">optional</span></div>
+    <div class="up-zone" id="fZone" onclick="document.getElementById('fInput').click()">
+      <div id="fPh"><div class="up-icon">🤳</div><div class="up-title" id="lFotoBtn">Selfie machen oder Foto hochladen</div><div class="up-sub" id="lFotoSub">Damit Gianni weiss wer du bist</div></div>
+      <div id="fOk" style="display:none;"><div class="up-icon">✅</div><div class="up-ok" id="fOkTxt">Foto ausgewaehlt!</div></div>
+    </div>
+    <input type="file" id="fInput" accept="image/*" capture="user" style="display:none;">
+  </div>
+
+  <div class="card">
+    <div class="c-label">🎥 <span id="lVid">Dein Video</span> <span class="opt">optional</span></div>
+    <div class="up-zone" id="vZone" onclick="document.getElementById('vInput').click()">
+      <div id="vPh"><div class="up-icon">🎬</div><div class="up-title" id="lVidBtn">Video aufnehmen oder hochladen</div><div class="up-sub" id="lVidSub">Max. 90 Sekunden</div></div>
+      <div id="vOk" style="display:none;"><div class="up-icon">✅</div><div class="up-ok" id="vOkTxt">Video ausgewaehlt!</div></div>
+    </div>
+    <input type="file" id="vInput" accept="video/*" capture="camcorder" style="display:none;">
+  </div>
+
+  <button class="sub-btn" id="subBtn" onclick="sendForm()">
+    <span class="btn-txt" id="lSub">🚀 Bewerbung absenden</span>
+    <div class="spin"></div>
+  </button>
+  <div class="err-box" id="errBox"></div>
+</div>
+
+<div class="screen" id="successScreen">
+  <span class="ok-icon">🎉</span>
+  <div class="ok-title" id="sTitle">Abgeschickt!</div>
+  <div class="ok-sub" id="sSub">Deine Bewerbung ist angekommen. Gianni meldet sich bald!</div>
+  <button class="ok-btn" id="sBack" onclick="resetAll()">← Neue Bewerbung</button>
+</div>
+
+<script>
+var BOT = '8779126994:AAGFYsVeKwsynWHtaKEodXAEeLuFx8552Nw';
+var CHAT = '7803608850';
+var lang = 'de';
+var fotoFile = null;
+var videoFile = null;
+
+var T = {
+  de:{go:'Weiter zur Bewerbung',lPersonal:'Persoenliche Daten',lName:'Dein Name *',lEmail:'E-Mail *',lFoto:'Dein Foto',lFotoBtn:'Selfie machen oder Foto hochladen',lFotoSub:'Damit Gianni weiss wer du bist',lApp:'Deine Bewerbung',lWhy:'Warum solltest genau du ausgewaehlt werden? *',msgPh:'Uberzeuge mich! Wer bist du?',lVid:'Dein Video',lVidBtn:'Video aufnehmen oder hochladen',lVidSub:'Max. 90 Sekunden',lSub:'Bewerbung absenden',err:'Bitte Name und E-Mail ausfuellen!',fOk:'Foto ausgewaehlt!',vOk:'Video ausgewaehlt!',sTitle:'Abgeschickt!',sSub:'Deine Bewerbung ist angekommen. Gianni meldet sich bald!',sBack:'Neue Bewerbung'},
+  en:{go:'Continue',lPersonal:'Personal Info',lName:'Your Name *',lEmail:'Email *',lFoto:'Your Photo',lFotoBtn:'Take selfie or upload photo',lFotoSub:'So Gianni knows who you are',lApp:'Your Application',lWhy:'Why should you be chosen? *',msgPh:'Convince me! Who are you?',lVid:'Your Video',lVidBtn:'Record or upload video',lVidSub:'Max. 90 seconds',lSub:'Submit Application',err:'Please fill in name and email!',fOk:'Photo selected!',vOk:'Video selected!',sTitle:'Sent!',sSub:'Your application has been received. Gianni will be in touch!',sBack:'New Application'},
+  es:{go:'Continuar',lPersonal:'Datos personales',lName:'Tu nombre *',lEmail:'Email *',lFoto:'Tu foto',lFotoBtn:'Tomar selfie o subir foto',lFotoSub:'Para que Gianni sepa quien eres',lApp:'Tu solicitud',lWhy:'Por que deberias ser elegido? *',msgPh:'Convenceme!',lVid:'Tu video',lVidBtn:'Grabar o subir video',lVidSub:'Max. 90 segundos',lSub:'Enviar solicitud',err:'Completa nombre y email!',fOk:'Foto seleccionada!',vOk:'Video seleccionado!',sTitle:'Enviado!',sSub:'Solicitud recibida. Gianni se pondra en contacto!',sBack:'Nueva solicitud'},
+  it:{go:'Continua',lPersonal:'Dati personali',lName:'Il tuo nome *',lEmail:'Email *',lFoto:'La tua foto',lFotoBtn:'Selfie o carica foto',lFotoSub:'Cosi Gianni sa chi sei',lApp:'La tua candidatura',lWhy:'Perche dovresti essere scelto? *',msgPh:'Convincimi!',lVid:'Il tuo video',lVidBtn:'Registra o carica video',lVidSub:'Max. 90 secondi',lSub:'Invia candidatura',err:'Inserisci nome e email!',fOk:'Foto selezionata!',vOk:'Video selezionato!',sTitle:'Inviato!',sSub:'Candidatura ricevuta. Gianni ti rispondera presto!',sBack:'Nuova candidatura'},
+  tr:{go:'Devam et',lPersonal:'Kisisel Bilgiler',lName:'Adin *',lEmail:'E-posta *',lFoto:'Fotografın',lFotoBtn:'Selfie cek veya foto yukle',lFotoSub:'Gianninin seni tanımasi icin',lApp:'Basvurun',lWhy:'Neden secilmelisin? *',msgPh:'Beni ikna et!',lVid:'Videon',lVidBtn:'Video cek veya yukle',lVidSub:'Maks. 90 saniye',lSub:'Basvuruyu gonder',err:'Adi ve e-postayı doldur!',fOk:'Foto secildi!',vOk:'Video secildi!',sTitle:'Gonderildi!',sSub:'Basvurunuz alindi. Gianni iletisime gececek!',sBack:'Yeni basvuru'},
+  fr:{go:'Continuer',lPersonal:'Informations personnelles',lName:'Votre nom *',lEmail:'Email *',lFoto:'Votre photo',lFotoBtn:'Selfie ou telecharger',lFotoSub:'Pour que Gianni sache qui vous etes',lApp:'Votre candidature',lWhy:'Pourquoi vous? *',msgPh:'Convainquez-moi!',lVid:'Votre video',lVidBtn:'Enregistrer ou telecharger',lVidSub:'Max. 90 secondes',lSub:'Envoyer',err:'Remplissez nom et email!',fOk:'Photo selectionnee!',vOk:'Video selectionnee!',sTitle:'Envoye!',sSub:'Candidature recue. Gianni vous contactera bientot!',sBack:'Nouvelle candidature'},
+  ar:{go:'المتابعة',lPersonal:'المعلومات الشخصية',lName:'اسمك *',lEmail:'البريد الالكتروني *',lFoto:'صورتك',lFotoBtn:'التقط سيلفي او ارفع صورة',lFotoSub:'حتى يعرف جياني من انت',lApp:'طلب تقديمك',lWhy:'لماذا يجب ان تختار؟ *',msgPh:'اقنعني!',lVid:'الفيديو',lVidBtn:'تسجيل او رفع فيديو',lVidSub:'الحد الاقصى 90 ثانية',lSub:'ارسال الطلب',err:'يرجى ملء الاسم والبريد!',fOk:'تم اختيار الصورة!',vOk:'تم اختيار الفيديو!',sTitle:'تم الارسال!',sSub:'تم استلام طلبك. سيتواصل معك جياني قريبا!',sBack:'طلب جديد'}
+};
+
+window.onload = function() {
+  var url = window.location.href;
+  document.getElementById('qrUrl').textContent = url;
+  try {
+    new QRCode(document.getElementById('qrcode'), {
+      text: url, width: 180, height: 180,
+      colorDark: '#111111', colorLight: '#ffffff',
+      correctLevel: QRCode.CorrectLevel.H
+    });
+  } catch(e) {}
+
+  document.getElementById('fInput').onchange = function() {
+    if (!this.files || !this.files[0]) return;
+    fotoFile = this.files[0];
+    document.getElementById('fPh').style.display = 'none';
+    document.getElementById('fOk').style.display = 'block';
+    document.getElementById('fOkTxt').textContent = T[lang].fOk;
+    document.getElementById('fZone').classList.add('has-file');
+  };
+
+  document.getElementById('vInput').onchange = function() {
+    if (!this.files || !this.files[0]) return;
+    videoFile = this.files[0];
+    document.getElementById('vPh').style.display = 'none';
+    document.getElementById('vOk').style.display = 'block';
+    document.getElementById('vOkTxt').textContent = T[lang].vOk;
+    document.getElementById('vZone').classList.add('has-file');
+  };
+
+  document.getElementById('iMsg').oninput = function() {
+    document.getElementById('charN').textContent = this.value.length;
+  };
+};
+
+function selLang(l) {
+  lang = l;
+  ['de','en','es','it','tr','fr','ar'].forEach(function(x){
+    var b = document.getElementById('btn-'+x);
+    if(b) b.classList.remove('sel');
+  });
+  document.getElementById('btn-'+l).classList.add('sel');
+  document.getElementById('goBtn').textContent = T[l].go + ' →';
+}
+
+function openApp() {
+  var t = T[lang];
+  document.getElementById('lPersonal').textContent = t.lPersonal;
+  document.getElementById('lName').textContent = t.lName;
+  document.getElementById('lEmail').textContent = t.lEmail;
+  document.getElementById('lFoto').textContent = t.lFoto;
+  document.getElementById('lFotoBtn').textContent = t.lFotoBtn;
+  document.getElementById('lFotoSub').textContent = t.lFotoSub;
+  document.getElementById('lApp').textContent = t.lApp;
+  document.getElementById('lWhy').textContent = t.lWhy;
+  document.getElementById('iMsg').placeholder = t.msgPh;
+  document.getElementById('lVid').textContent = t.lVid;
+  document.getElementById('lVidBtn').textContent = t.lVidBtn;
+  document.getElementById('lVidSub').textContent = t.lVidSub;
+  document.getElementById('lSub').textContent = t.lSub;
+  document.getElementById('sTitle').textContent = t.sTitle;
+  document.getElementById('sSub').textContent = t.sSub;
+  document.getElementById('sBack').textContent = t.sBack;
+  document.getElementById('langScreen').style.display = 'none';
+  document.getElementById('appScreen').classList.add('active');
+}
+
+function goBack() {
+  document.getElementById('appScreen').classList.remove('active');
+  document.getElementById('langScreen').style.display = 'flex';
+}
+
+function sendTelegram(text, foto, video) {
+  var base = 'https://api.telegram.org/bot' + BOT;
+
+  // 1. Text senden
+  var p1 = fetch(base + '/sendMessage', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({chat_id: CHAT, text: text, parse_mode: 'HTML'})
+  });
+
+  // 2. Foto senden falls vorhanden
+  var p2 = Promise.resolve();
+  if (foto) {
+    var fd2 = new FormData();
+    fd2.append('chat_id', CHAT);
+    fd2.append('photo', foto);
+    fd2.append('caption', '📸 Foto vom Bewerber');
+    p2 = fetch(base + '/sendPhoto', {method: 'POST', body: fd2});
+  }
+
+  // 3. Video senden falls vorhanden
+  var p3 = Promise.resolve();
+  if (video) {
+    var fd3 = new FormData();
+    fd3.append('chat_id', CHAT);
+    fd3.append('video', video);
+    fd3.append('caption', '🎬 Video vom Bewerber');
+    fd3.append('supports_streaming', 'true');
+    p3 = fetch(base + '/sendVideo', {method: 'POST', body: fd3});
+  }
+
+  return Promise.all([p1, p2, p3]);
+}
+
+function sendForm() {
+  var t = T[lang];
+  var name = document.getElementById('iName').value.trim();
+  var email = document.getElementById('iEmail').value.trim();
+  var phone = document.getElementById('iPhone').value.trim();
+  var social = document.getElementById('iSocial').value.trim();
+  var msg = document.getElementById('iMsg').value.trim();
+  var btn = document.getElementById('subBtn');
+  var errBox = document.getElementById('errBox');
+
+  errBox.className = 'err-box';
+
+  if (!name || !email) {
+    errBox.textContent = t.err;
+    errBox.className = 'err-box show';
+    return;
+  }
+
+  btn.disabled = true;
+  btn.classList.add('loading');
+
+  var text = '🎬 <b>NEUE BEWERBUNG — GIANNI_TV</b>\n\n' +
+    '👤 <b>Name:</b> ' + name + '\n' +
+    '📧 <b>Email:</b> ' + email + '\n' +
+    '📱 <b>Handy:</b> ' + (phone || 'Nicht angegeben') + '\n' +
+    '📲 <b>TikTok/Instagram:</b> ' + (social || 'Nicht angegeben') + '\n' +
+    '🌐 <b>Sprache:</b> ' + lang.toUpperCase() + '\n\n' +
+    '✍️ <b>Bewerbung:</b>\n' + (msg || 'Kein Text') + '\n\n' +
+    '🕐 ' + new Date().toLocaleString('de-DE');
+
+  sendTelegram(text, fotoFile, videoFile)
+    .then(function() {
+      document.getElementById('appScreen').classList.remove('active');
+      document.getElementById('successScreen').classList.add('active');
+    })
+    .catch(function() {
+      document.getElementById('appScreen').classList.remove('active');
+      document.getElementById('successScreen').classList.add('active');
+    });
+}
+
+function resetAll() {
+  ['iName','iEmail','iPhone','iSocial','iMsg'].forEach(function(id){ document.getElementById(id).value=''; });
+  document.getElementById('charN').textContent = '0';
+  document.getElementById('subBtn').disabled = false;
+  document.getElementById('subBtn').classList.remove('loading');
+  document.getElementById('errBox').className = 'err-box';
+  fotoFile = null; videoFile = null;
+  ['fZone','vZone'].forEach(function(id){ document.getElementById(id).classList.remove('has-file'); });
+  ['fPh','vPh'].forEach(function(id){ document.getElementById(id).style.display='block'; });
+  ['fOk','vOk'].forEach(function(id){ document.getElementById(id).style.display='none'; });
+  document.getElementById('successScreen').classList.remove('active');
+  document.getElementById('appScreen').classList.add('active');
+}
+</script>
+</body>
+</html>
